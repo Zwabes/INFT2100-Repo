@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: render project charter
+  image: docker.io/thomasweise/texlive:latest
+  commands:
+  - pandoc project-charter.md --from=markdown --to=latex --output=project-charter.pdf --listings --csl=resources/apa.csl --template=resources/eisvogel.latex
+
+- name: discord notification
+  image: appleboy/drone-discord
+  settings:
+    webhook_id: 890981991137284136
+    webhook_token: 7lnDLdXoxpi860xC-nTVwy6TJUzmJYqsuoQmTCSbATX4T-PhaqW1aANS5yM2rufTpAZ4
+    username: droneci-bot
+    message: test
