@@ -2,6 +2,8 @@ kind: pipeline
 type: docker
 name: default
 
+# https://discord.com/api/webhooks/890998423707348993/
+
 steps:
 - name: render project charter
   image: docker.io/thomasweise/texlive:latest
@@ -11,7 +13,9 @@ steps:
 - name: discord notification
   image: appleboy/drone-discord
   settings:
-    webhook_id: 890981991137284136
-    webhook_token: 7lnDLdXoxpi860xC-nTVwy6TJUzmJYqsuoQmTCSbATX4T-PhaqW1aANS5yM2rufTpAZ4
+    webhook_id:
+      from_secret: webhook_id
+    webhook_token:
+      from_secret: webhook_secret
     username: droneci-bot
-    message: test
+    message: hello from droneci cloud
